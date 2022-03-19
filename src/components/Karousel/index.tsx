@@ -7,7 +7,7 @@ import {
   useState,
 } from "react";
 
-interface KarouselProps {
+export interface KarouselProps {
   autoplay?: boolean;
   autoplaySpeed?: number;
   buttons?: boolean;
