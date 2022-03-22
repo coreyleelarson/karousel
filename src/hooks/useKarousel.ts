@@ -1,24 +1,26 @@
-import { useMemo } from "react";
-import { ButtonHTMLAttributes, Children, HTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, HTMLAttributes } from "react";
+import { applyDefaults } from "../defaults";
 import { KarouselOptions } from "../types";
 import { useAutoplay } from "./useAutoplay";
 import { useDraggable } from "./useDraggable";
 import { usePaging } from "./usePaging";
 import { useTrack } from "./useTrack";
 
-export const useKarousel = (items: ReactNode, options: KarouselOptions) => {
-  const { classes, speed = 300 } = options;
-  const slideCount = useMemo(() => Children.count(items), [items]);
-  const { currentPage, goToNext, goToPage, goToPrevious, pageCount } = usePaging({ ...options, slideCount });
-  const { pauseTimer, startTimer } = useAutoplay({ ...options, onNext: goToNext });
-  const { draggableEvents, draggedX, isDragging } = useDraggable({ ...options,
+
+
+export const useKarousel = (slideCount: number, options: Partial<KarouselOptions>) => {
+  const defaultedOptions = applyDefaults(options);
+  const { classes, speed } = defaultedOptions;
+  const { currentPage, goToNext, goToPage, goToPrevious, pageCount } = usePaging({ ...defaultedOptions, slideCount });
+  const { pauseTimer, startTimer } = useAutoplay({ ...defaultedOptions, onNext: goToNext });
+  const { draggableEvents, draggedX, isDragging } = useDraggable({ ...defaultedOptions,
     onDragEnd: startTimer,
     onDragStart: pauseTimer,
     onNext: goToNext,
     onPrevious: goToPrevious,
   });
   const { trackOffset, trackWidth } = useTrack({
-    ...options,
+    ...defaultedOptions,
     currentPage,
     draggedX,
     pageCount,

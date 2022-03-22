@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { PagingOptions } from "../types";
 
 export const usePaging = (options: PagingOptions) => {
-  const { slideCount, slidesToScroll = 1, slidesToShow = 1 } = options;
+  const { slideCount, slidesToScroll, slidesToShow } = options;
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageCount = useMemo(() => 1 + Math.ceil((slideCount - slidesToShow) / slidesToScroll), [slideCount, slidesToScroll, slidesToShow]);
   const goToPage = useCallback((page: number) => setCurrentPage(page), []);

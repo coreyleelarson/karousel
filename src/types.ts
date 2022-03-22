@@ -1,13 +1,13 @@
 export interface KarouselOptions {
-  autoplay?: boolean;
-  autoplaySpeed?: number;
-  buttons?: boolean;
-  classes?: Record<string, string>;
-  draggable?: boolean;
-  indicators?: boolean;
-  slidesToScroll?: number;
-  slidesToShow?: number;
-  speed?: number;
+  autoplay: boolean;
+  autoplaySpeed: number;
+  buttons: boolean;
+  classes: Record<string, string>;
+  draggable: boolean;
+  indicators: boolean;
+  slidesToScroll: number;
+  slidesToShow: number;
+  speed: number;
 }
 
 export interface AutoplayOptions extends KarouselOptions {

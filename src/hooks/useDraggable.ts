@@ -1,8 +1,14 @@
-import { HTMLAttributes, MouseEvent, useCallback, useMemo, useState } from "react";
+import { MouseEvent, useCallback, useMemo, useState } from "react";
 import { DraggableOptions } from "../types";
 
 export const useDraggable = (options: DraggableOptions) => {
-  const { draggable = false, onDragStart, onDragEnd, onNext, onPrevious } = options;
+  const {
+    draggable,
+    onDragStart,
+    onDragEnd,
+    onNext,
+    onPrevious,
+  } = options;
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [dragStart, setDragStart] = useState<number>(0);
   const [dragX, setDragX] = useState<number>(0);

@@ -1,6 +1,7 @@
 import {
   Children,
   PropsWithChildren,
+  useMemo,
 } from "react";
 import { useKarousel } from "../../hooks";
 import { KarouselOptions } from "../../types";
@@ -13,6 +14,8 @@ export const Karousel = (props: PropsWithChildren<KarouselOptions>) => {
     indicators = false,
   } = options;
 
+  const slideCount = useMemo(() => Children.count(children), [children]);
+
   const {
     getButtonProps,
     getContainerProps,
@@ -21,7 +24,7 @@ export const Karousel = (props: PropsWithChildren<KarouselOptions>) => {
     getSliderProps,
     getTrackProps,
     pageCount,
-  } = useKarousel(children, options);
+  } = useKarousel(slideCount, options);
 
   return (
     <div {...getContainerProps()}>

@@ -7,8 +7,8 @@ export const useTrack = (options: TrackOptions) => {
     draggedX = 0,
     pageCount = 0,
     slideCount = 0,
-    slidesToScroll = 1,
-    slidesToShow = 1,
+    slidesToScroll,
+    slidesToShow,
   } = options;
 
   const trackWidth = useMemo(() => `${(100 * slideCount) / slidesToShow}%`, [slideCount, slidesToShow]);
