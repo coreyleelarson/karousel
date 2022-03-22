@@ -1,14 +1,14 @@
 import { Story } from "@storybook/react";
-import { KarouselOptions } from "../../types";
-import { Karousel as KarouselComponent } from ".";
+import { Karousel as KarouselComponent } from "../components/Karousel";
+import { KarouselOptions } from "../types";
 
 export default {
-  title: "Karousel",
+  title: "components/Karousel",
   component: KarouselComponent,
 };
 
 const Template: Story<KarouselOptions> = (args: any) => (
-  <KarouselComponent {...args} classes={{ button: 'button', buttonNext: 'next', buttonPrevious: 'previous', container: 'container', indicators: 'indicators', slide: 'slide' }}>
+  <KarouselComponent {...args}>
     <span>Slide 1</span>
     <span>Slide 2</span>
     <span>Slide 3</span>
