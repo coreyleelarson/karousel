@@ -42,8 +42,11 @@ export const useDraggable = (options: DraggableOptions) => {
 
   const draggableEvents = {
     onMouseDown: handleDragStart,
+    onTouchStart: handleDragStart,
     onMouseMove: handleDrag,
+    onTouchMove: handleDrag,
     onMouseUp: handleDragEnd,
+    onTouchEnd: handleDragEnd,
   };
 
   return { draggableEvents, draggedX, isDragging };
