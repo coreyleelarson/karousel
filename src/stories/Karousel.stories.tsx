@@ -7,7 +7,7 @@ export default {
 };
 
 const Template: Story<KarouselProps> = (args: any) => (
-  <KarouselComponent {...args} slidesToShow={2} responsive={[{ breakpoint: 768, options: { slidesToShow: 4 }}]}>
+  <KarouselComponent {...args}>
     <span>Slide 1</span>
     <span>Slide 2</span>
     <span>Slide 3</span>
