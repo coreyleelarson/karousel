@@ -17,7 +17,8 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
 
   const { currentPage, goToNext, goToPage, goToPrevious, pageCount } = usePaging({ ...responsiveOptions, slideCount });
   const { pauseTimer, startTimer } = useAutoplay({ ...responsiveOptions, onNext: goToNext });
-  const { draggableEvents, draggedX, isDragging } = useDraggable({ ...responsiveOptions,
+  const { draggableEvents, draggedX, isDragging } = useDraggable({
+    ...responsiveOptions,
     onDragEnd: startTimer,
     onDragStart: pauseTimer,
     onNext: goToNext,
