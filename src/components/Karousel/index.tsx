@@ -6,14 +6,11 @@ import {
 import { useKarousel } from "../../hooks";
 import { KarouselOptions } from "../../types";
 
-export const Karousel = (props: PropsWithChildren<KarouselOptions>) => {
-  const { children, ...options } = props;
-  const {
-    buttons = false,
-    classes,
-    indicators = false,
-  } = options;
+export type KarouselProps = PropsWithChildren<Partial<KarouselOptions>>;
 
+export const Karousel = (props: KarouselProps) => {
+  const { children, ...options } = props;
+  const { buttons, classes, indicators } = options;
   const slideCount = useMemo(() => Children.count(children), [children]);
 
   const {

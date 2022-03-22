@@ -4,21 +4,27 @@ import { KarouselOptions } from "../types";
 import { useAutoplay } from "./useAutoplay";
 import { useDraggable } from "./useDraggable";
 import { usePaging } from "./usePaging";
+import { useResponsive } from "./useResponsive";
 import { useTrack } from "./useTrack";
 
 export const useKarousel = (slideCount: number, options: Partial<KarouselOptions>) => {
+  // Ensure options are defaulted.
   const defaultedOptions = applyDefaults(options);
   const { classes, speed } = defaultedOptions;
-  const { currentPage, goToNext, goToPage, goToPrevious, pageCount } = usePaging({ ...defaultedOptions, slideCount });
-  const { pauseTimer, startTimer } = useAutoplay({ ...defaultedOptions, onNext: goToNext });
-  const { draggableEvents, draggedX, isDragging } = useDraggable({ ...defaultedOptions,
+
+  // Ensure options are responsive.
+  const { responsiveOptions } = useResponsive(defaultedOptions);
+
+  const { currentPage, goToNext, goToPage, goToPrevious, pageCount } = usePaging({ ...responsiveOptions, slideCount });
+  const { pauseTimer, startTimer } = useAutoplay({ ...responsiveOptions, onNext: goToNext });
+  const { draggableEvents, draggedX, isDragging } = useDraggable({ ...responsiveOptions,
     onDragEnd: startTimer,
     onDragStart: pauseTimer,
     onNext: goToNext,
     onPrevious: goToPrevious,
   });
   const { trackOffset, trackWidth } = useTrack({
-    ...defaultedOptions,
+    ...responsiveOptions,
     currentPage,
     draggedX,
     pageCount,

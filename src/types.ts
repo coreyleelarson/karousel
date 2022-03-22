@@ -5,9 +5,15 @@ export interface KarouselOptions {
   classes: Record<string, string>;
   draggable: boolean;
   indicators: boolean;
+  responsive: ResponsiveKarouselOption[];
   slidesToScroll: number;
   slidesToShow: number;
   speed: number;
+}
+
+export interface ResponsiveKarouselOption {
+  breakpoint: number;
+  options: Omit<KarouselOptions, 'responsive'>;
 }
 
 export interface AutoplayOptions extends KarouselOptions {
@@ -24,6 +30,8 @@ export interface DraggableOptions extends KarouselOptions {
 export interface PagingOptions extends KarouselOptions {
   slideCount: number;
 }
+
+export interface ResponsiveOptions extends KarouselOptions {}
 
 export interface TrackOptions extends KarouselOptions {
   currentPage: number;

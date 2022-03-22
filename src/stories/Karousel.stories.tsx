@@ -1,14 +1,13 @@
 import { Story } from "@storybook/react";
-import { Karousel as KarouselComponent } from "../components/Karousel";
-import { KarouselOptions } from "../types";
+import { Karousel as KarouselComponent, KarouselProps } from "../components/Karousel";
 
 export default {
   title: "components/Karousel",
   component: KarouselComponent,
 };
 
-const Template: Story<KarouselOptions> = (args: any) => (
-  <KarouselComponent {...args}>
+const Template: Story<KarouselProps> = (args: any) => (
+  <KarouselComponent {...args} slidesToShow={2} responsive={[{ breakpoint: 500, options: { slidesToShow: 4 }}]}>
     <span>Slide 1</span>
     <span>Slide 2</span>
     <span>Slide 3</span>
@@ -23,11 +22,3 @@ const Template: Story<KarouselOptions> = (args: any) => (
 );
 
 export const Karousel = Template.bind({});
-Karousel.args = {
-  autoplay: false,
-  buttons: true,
-  draggable: true,
-  indicators: true,
-  slidesToScroll: 1,
-  slidesToShow: 1,
-};
