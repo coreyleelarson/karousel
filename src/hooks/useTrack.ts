@@ -2,15 +2,7 @@ import { useMemo } from "react";
 import { TrackOptions } from "../types";
 
 export const useTrack = (options: TrackOptions) => {
-  const {
-    currentPage = 1,
-    draggedX = 0,
-    pageCount = 0,
-    slideCount = 0,
-    slidesToScroll,
-    slidesToShow,
-  } = options;
-
+  const { currentPage, draggedX, pageCount, slideCount, slidesToScroll, slidesToShow } = options;
   const trackWidth = useMemo(() => `${(100 * slideCount) / slidesToShow}%`, [slideCount, slidesToShow]);
   const trackOffset = useMemo(
     () => {

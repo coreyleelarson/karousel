@@ -6,8 +6,6 @@ import { useDraggable } from "./useDraggable";
 import { usePaging } from "./usePaging";
 import { useTrack } from "./useTrack";
 
-
-
 export const useKarousel = (slideCount: number, options: Partial<KarouselOptions>) => {
   const defaultedOptions = applyDefaults(options);
   const { classes, speed } = defaultedOptions;

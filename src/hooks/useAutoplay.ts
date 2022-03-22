@@ -2,13 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { AutoplayOptions } from "../types";
 
 export const useAutoplay = (options: AutoplayOptions) => {
-  const {
-    autoplay,
-    autoplaySpeed,
-    onNext,
-    speed,
-  } = options;
-
+  const { autoplay, autoplaySpeed, onNext, speed } = options;
   const autoplayTimer = useRef<NodeJS.Timer>();
 
   const pauseTimer = useCallback(() => {

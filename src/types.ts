@@ -26,8 +26,8 @@ export interface PagingOptions extends KarouselOptions {
 }
 
 export interface TrackOptions extends KarouselOptions {
-  currentPage?: number;
-  draggedX?: number;
-  pageCount?: number;
-  slideCount?: number;
+  currentPage: number;
+  draggedX: number;
+  pageCount: number;
+  slideCount: number;
 }
