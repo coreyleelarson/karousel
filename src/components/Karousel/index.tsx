@@ -1,6 +1,7 @@
 import {
   Children,
   PropsWithChildren,
+  useCallback,
   useEffect,
   useMemo,
   useRef,
@@ -13,6 +14,8 @@ export interface KarouselProps {
   buttons?: boolean;
   classes?: Record<string, string>;
   indicators?: boolean;
+  slidesToScroll?: number;
+  slidesToShow?: number;
   transitionSpeed?: number;
 }
 
@@ -24,40 +27,39 @@ export const Karousel = (props: PropsWithChildren<KarouselProps>) => {
     children,
     classes,
     indicators = false,
+    slidesToScroll = 1,
+    slidesToShow = 1,
     transitionSpeed = 300,
   } = props;
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const slideCount = useMemo(() => Children.count(children), [Children]);
-  const trackWidth = useMemo(() => `${100 * slideCount}%`, [slideCount]);
-  const trackOffset = useMemo(
-    () => `${currentIndex * -(100 / slideCount)}%`,
-    [currentIndex, slideCount]
-  );
+  const [currentSegment, setCurrentSegment] = useState<number>(1);
   const autoplayTimer = useRef<NodeJS.Timer>();
+  const slideCount = useMemo(() => Children.count(children), [children]);
+  const segmentCount = useMemo(() => 1 + Math.ceil((slideCount - slidesToShow) / slidesToScroll), [slideCount, slidesToScroll, slidesToShow]);
+  const trackWidth = useMemo(() => `${(100 * slideCount) / slidesToShow}%`, [slideCount, slidesToShow]);
+  const trackOffset = useMemo(
+    () => {
+      const slideIndex = (currentSegment - 1) * slidesToScroll;
+      const slidePush = currentSegment === segmentCount ? slidesToShow - (slideCount - slideIndex) : 0;
+      return `${(slideIndex - slidePush) * -100 / slideCount}%`;
+    },
+    [currentSegment, segmentCount, slideCount, slidesToScroll, slidesToShow]
+  );
 
-  const goToSlide = (nextIndex: number) =>
-    setCurrentIndex((previousIndex) => {
-      if (nextIndex < 0) return slideCount - 1;
-      if (nextIndex > slideCount - 1) return 0;
-      return nextIndex;
-    });
+  const goToPrevious = useCallback(() => setCurrentSegment(currentSegment - 1), [currentSegment]);
+  const goToNext = useCallback(() => setCurrentSegment(currentSegment + 1), [currentSegment]);
 
-  const goToPrevious = () => goToSlide(currentIndex - 1);
-
-  const goToNext = () => goToSlide(currentIndex + 1);
-
-  const startTimer = () => {
+  const startTimer = useCallback(() => {
     if (autoplay) {
       if (autoplayTimer.current) clearInterval(autoplayTimer.current);
       autoplayTimer.current = setInterval(goToNext, autoplaySpeed);
     }
-  };
+  }, [autoplay, autoplaySpeed, autoplayTimer, goToNext]);
 
-  const pauseTimer = () => {
+  const pauseTimer = useCallback(() => {
     if (autoplay && autoplayTimer.current) {
       clearInterval(autoplayTimer.current);
     }
-  };
+  }, [autoplay, autoplayTimer]);
 
   useEffect(() => {
     const timeoutTimer = setTimeout(startTimer, transitionSpeed);
@@ -65,24 +67,34 @@ export const Karousel = (props: PropsWithChildren<KarouselProps>) => {
       clearTimeout(timeoutTimer);
       pauseTimer();
     };
-  }, [currentIndex, transitionSpeed]);
+  }, [autoplay, pauseTimer, startTimer, transitionSpeed]);
+
+  useEffect(() => {
+    if (currentSegment < 1) {
+      setCurrentSegment(segmentCount);
+    } else if (currentSegment > segmentCount) {
+      setCurrentSegment(1);
+    }
+  }, [currentSegment, segmentCount]);
 
   return (
-    <div className={classes?.container} style={{ overflow: "hidden" }}>
-      <div
-        className={classes?.track}
-        style={{
-          display: "flex",
-          transform: `translateX(${trackOffset})`,
-          transition: "transform 300ms ease-in-out",
-          width: trackWidth,
-        }}
-      >
-        {Children.map(children, (child, index) => (
-          <div className={classes?.slide} key={index} style={{ width: "100%" }}>
-            {child}
-          </div>
-        ))}
+    <div className={classes?.container}>
+      <div className={classes?.carousel} style={{ overflow: "hidden" }}>
+        <div
+          className={classes?.track}
+          style={{
+            display: "flex",
+            transform: `translateX(${trackOffset})`,
+            transition: "transform 300ms ease-in-out",
+            width: trackWidth,
+          }}
+        >
+          {Children.map(children, (child, index) => (
+            <div className={classes?.slide} key={index} style={{ width: '100%' }}>
+              {child}
+            </div>
+          ))}
+        </div>
       </div>
       {buttons && (
         <>
@@ -108,19 +120,19 @@ export const Karousel = (props: PropsWithChildren<KarouselProps>) => {
       )}
       {indicators && (
         <div className={classes?.indicators}>
-          {Children.map(children, (_, index) => (
+          {[...Array(segmentCount)].map((_, index) => (
             <button
               className={[
                 classes?.indicator,
-                index === currentIndex && classes?.indicatorActive,
+                index === currentSegment && classes?.indicatorActive,
               ]
                 .filter(Boolean)
                 .join(" ")}
               key={index}
-              onClick={() => goToSlide(index)}
+              onClick={() => setCurrentSegment(index + 1)}
               type="button"
             >
-              Slide {index + 1}
+              {index + 1}
             </button>
           ))}
         </div>
