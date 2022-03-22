@@ -7,7 +7,7 @@ export default {
 };
 
 const Template: Story<KarouselProps> = (args: any) => (
-  <KarouselComponent {...args}>
+  <KarouselComponent {...args} draggable slidesToShow={2}>
     <span>Slide 1</span>
     <span>Slide 2</span>
     <span>Slide 3</span>

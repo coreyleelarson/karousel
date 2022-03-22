@@ -1,4 +1,10 @@
-import { MouseEvent, TouchEvent, useCallback, useMemo, useState } from "react";
+import {
+  MouseEvent as ReactMouseEvent,
+  TouchEvent as ReactTouchEvent,
+  useCallback,
+  useMemo,
+  useState,
+} from "react";
 import { DraggableOptions } from "../types";
 
 export const useDraggable = (options: DraggableOptions) => {
@@ -8,9 +14,10 @@ export const useDraggable = (options: DraggableOptions) => {
   const [dragX, setDragX] = useState<number>(0);
   const draggedX = useMemo(() => dragStart - dragX, [dragStart, dragX]);
 
-  const handleDragStart = useCallback((e: MouseEvent | TouchEvent) => {
+  const handleDragStart = useCallback((e: ReactMouseEvent | ReactTouchEvent) => {
     if (draggable) {
       onDragStart?.();
+      console.log(e);
       if (e.nativeEvent instanceof TouchEvent) {
         setDragStart(e.nativeEvent.touches[0].clientX);
         setDragX(e.nativeEvent.touches[0].clientX);
@@ -22,7 +29,7 @@ export const useDraggable = (options: DraggableOptions) => {
     }
   }, [draggable, onDragStart]);
 
-  const handleDrag = useCallback((e: MouseEvent | TouchEvent) => {
+  const handleDrag = useCallback((e: ReactMouseEvent | ReactTouchEvent) => {
     if (draggable && isDragging) {
       if (e.nativeEvent instanceof TouchEvent) {
         setDragX(e.nativeEvent.touches[0].clientX);
