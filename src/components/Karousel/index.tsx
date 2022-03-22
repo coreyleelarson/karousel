@@ -8,7 +8,7 @@ import {
   useState,
 } from "react";
 
-export interface KarouselProps {
+export interface KarouselOptions {
   autoplay?: boolean;
   autoplaySpeed?: number;
   buttons?: boolean;
@@ -16,10 +16,10 @@ export interface KarouselProps {
   indicators?: boolean;
   slidesToScroll?: number;
   slidesToShow?: number;
-  transitionSpeed?: number;
+  speed?: number;
 }
 
-export const Karousel = (props: PropsWithChildren<KarouselProps>) => {
+export const Karousel = (props: PropsWithChildren<KarouselOptions>) => {
   const {
     autoplay = false,
     autoplaySpeed = 3000,
@@ -29,7 +29,7 @@ export const Karousel = (props: PropsWithChildren<KarouselProps>) => {
     indicators = false,
     slidesToScroll = 1,
     slidesToShow = 1,
-    transitionSpeed = 300,
+    speed = 300,
   } = props;
   const [currentSegment, setCurrentSegment] = useState<number>(1);
   const autoplayTimer = useRef<NodeJS.Timer>();
@@ -62,12 +62,12 @@ export const Karousel = (props: PropsWithChildren<KarouselProps>) => {
   }, [autoplay, autoplayTimer]);
 
   useEffect(() => {
-    const timeoutTimer = setTimeout(startTimer, transitionSpeed);
+    const timeoutTimer = setTimeout(startTimer, speed);
     return () => {
       clearTimeout(timeoutTimer);
       pauseTimer();
     };
-  }, [autoplay, pauseTimer, startTimer, transitionSpeed]);
+  }, [autoplay, pauseTimer, startTimer, speed]);
 
   useEffect(() => {
     if (currentSegment < 1) {
