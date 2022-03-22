@@ -1,5 +1,6 @@
 import { Story } from "@storybook/react";
-import { Karousel as KarouselComponent, KarouselOptions } from ".";
+import { KarouselOptions } from "../../types";
+import { Karousel as KarouselComponent } from ".";
 
 export default {
   title: "Karousel",
@@ -25,6 +26,7 @@ export const Karousel = Template.bind({});
 Karousel.args = {
   autoplay: false,
   buttons: true,
+  draggable: true,
   indicators: true,
   slidesToScroll: 1,
   slidesToShow: 1,
