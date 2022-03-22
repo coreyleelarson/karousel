@@ -4,13 +4,13 @@ import { ResponsiveOptions } from "../types";
 export const useResponsive = (options: ResponsiveOptions) => {
   const { responsive } = options;
 
-  // Sorts breakpoints ascending and adds a media query listener.
+  // Sorts breakpoints descending and adds a media query listener.
   const parsedResponsive = useMemo(() => {
-    const sorted = responsive.slice().sort((a, b) => a.breakpoint - b.breakpoint);
+    const sorted = responsive.slice().sort((a, b) => b.breakpoint - a.breakpoint);
     return sorted.map(instance => ({ ...instance, mql: window.matchMedia(`(min-width: ${instance.breakpoint}px)`) }));
   }, [responsive]);
 
-  // Gets the matched options based on media query listeners..
+  // Gets the matched options based on media query listeners.
   const getResponsiveOptions = useCallback(() => {
     const matchedOptions = parsedResponsive.find(instance => instance.mql.matches)?.options;
     return { ...options, ...matchedOptions };
