@@ -1,4 +1,4 @@
-import { MouseEvent, useCallback, useMemo, useState } from "react";
+import { MouseEvent, TouchEvent, useCallback, useMemo, useState } from "react";
 import { DraggableOptions } from "../types";
 
 export const useDraggable = (options: DraggableOptions) => {
@@ -8,18 +8,27 @@ export const useDraggable = (options: DraggableOptions) => {
   const [dragX, setDragX] = useState<number>(0);
   const draggedX = useMemo(() => dragStart - dragX, [dragStart, dragX]);
 
-  const handleDragStart = useCallback((e: MouseEvent) => {
+  const handleDragStart = useCallback((e: MouseEvent | TouchEvent) => {
     if (draggable) {
       onDragStart?.();
-      setDragStart(e.clientX);
-      setDragX(e.clientX);
+      if (e.nativeEvent instanceof TouchEvent) {
+        setDragStart(e.nativeEvent.touches[0].clientX);
+        setDragX(e.nativeEvent.touches[0].clientX);
+      } else if (e.nativeEvent instanceof MouseEvent) {
+        setDragStart(e.nativeEvent.clientX);
+        setDragX(e.nativeEvent.clientX);
+      }
       setIsDragging(true);
     }
   }, [draggable, onDragStart]);
 
-  const handleDrag = useCallback((e: MouseEvent) => {
+  const handleDrag = useCallback((e: MouseEvent | TouchEvent) => {
     if (draggable && isDragging) {
-      setDragX(e.clientX);
+      if (e.nativeEvent instanceof TouchEvent) {
+        setDragX(e.nativeEvent.touches[0].clientX);
+      } else if (e.nativeEvent instanceof MouseEvent) {
+        setDragX(e.nativeEvent.clientX);
+      }
     }
   }, [draggable, isDragging]);
 
