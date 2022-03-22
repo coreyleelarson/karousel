@@ -1,5 +1,6 @@
 import {
   Children,
+  MouseEvent,
   PropsWithChildren,
   useCallback,
   useEffect,
@@ -32,6 +33,9 @@ export const Karousel = (props: PropsWithChildren<KarouselOptions>) => {
     speed = 300,
   } = props;
   const [currentSegment, setCurrentSegment] = useState<number>(1);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
+  const [dragStart, setDragStart] = useState<number>(0);
+  const [dragX, setDragX] = useState<number>(0);
   const autoplayTimer = useRef<NodeJS.Timer>();
   const slideCount = useMemo(() => Children.count(children), [children]);
   const segmentCount = useMemo(() => 1 + Math.ceil((slideCount - slidesToShow) / slidesToScroll), [slideCount, slidesToScroll, slidesToShow]);
@@ -40,9 +44,9 @@ export const Karousel = (props: PropsWithChildren<KarouselOptions>) => {
     () => {
       const slideIndex = (currentSegment - 1) * slidesToScroll;
       const slidePush = currentSegment === segmentCount ? slidesToShow - (slideCount - slideIndex) : 0;
-      return `${(slideIndex - slidePush) * -100 / slideCount}%`;
+      return `calc(${(slideIndex - slidePush) * -100 / slideCount}% - ${dragStart - dragX}px)`;
     },
-    [currentSegment, segmentCount, slideCount, slidesToScroll, slidesToShow]
+    [currentSegment, dragStart, dragX, segmentCount, slideCount, slidesToScroll, slidesToShow]
   );
 
   const goToPrevious = useCallback(() => setCurrentSegment(currentSegment - 1), [currentSegment]);
@@ -60,6 +64,36 @@ export const Karousel = (props: PropsWithChildren<KarouselOptions>) => {
       clearInterval(autoplayTimer.current);
     }
   }, [autoplay, autoplayTimer]);
+
+  const handleDragStart = useCallback((e: MouseEvent) => {
+    pauseTimer();
+    setDragStart(e.clientX);
+    setDragX(e.clientX);
+    setIsDragging(true);
+  }, []);
+
+  const handleDrag = useCallback((e: MouseEvent) => {
+    if (isDragging) {
+      setDragX(e.clientX);
+    }
+  }, [isDragging]);
+
+  const handleDragEnd = useCallback(() => {
+    startTimer();
+    setIsDragging(false);
+    setDragStart(0);
+    setDragX(0);
+
+    const delta = dragStart - dragX;
+
+    console.log('delta', delta);
+
+    if (delta > 50) {
+      goToNext();
+    } else if (delta < -50) {
+      goToPrevious();
+    }
+  }, [dragStart, dragX, goToNext, goToPrevious]);
 
   useEffect(() => {
     const timeoutTimer = setTimeout(startTimer, speed);
@@ -82,10 +116,13 @@ export const Karousel = (props: PropsWithChildren<KarouselOptions>) => {
       <div className={classes?.carousel} style={{ overflow: "hidden" }}>
         <div
           className={classes?.track}
+          onMouseDown={handleDragStart}
+          onMouseMove={handleDrag}
+          onMouseUp={handleDragEnd}
           style={{
             display: "flex",
             transform: `translateX(${trackOffset})`,
-            transition: "transform 300ms ease-in-out",
+            transition: !isDragging ? "transform 300ms ease-in-out" : undefined,
             width: trackWidth,
           }}
         >
