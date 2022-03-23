@@ -10,7 +10,6 @@
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "outDir": "dist/esm",
-    "sourceMap": true,
     "strict": true,
     "target": "ES5",
     "types": ["node"]
