@@ -43,7 +43,7 @@ export const Karousel = (props: KarouselProps) => {
       {indicators && (
         <div className={classes?.indicators}>
           {[...Array(pageCount)].map((_, index) => (
-            <button key={index} {...getIndicatorProps(index)}>
+            <button key={index + 1} {...getIndicatorProps(index + 1)}>
               {index + 1}
             </button>
           ))}

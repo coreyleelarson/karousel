@@ -69,7 +69,7 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
     ]
       .filter(Boolean)
       .join(" "),
-    onClick: () => goToPage(index + 1),
+    onClick: () => goToPage(index),
     type: 'button',
   });
 
