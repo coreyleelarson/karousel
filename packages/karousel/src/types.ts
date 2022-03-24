@@ -13,7 +13,7 @@ export interface KarouselOptions {
 
 export interface ResponsiveKarouselOption {
   breakpoint: number;
-  options: Omit<KarouselOptions, 'responsive'>;
+  options: Omit<Partial<KarouselOptions>, 'responsive'>;
 }
 
 export interface AutoplayOptions extends KarouselOptions {

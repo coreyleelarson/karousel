@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, HTMLAttributes } from "react";
+import { ButtonHTMLAttributes, HTMLAttributes, useCallback } from "react";
 import { applyDefaults } from "../defaults";
 import { KarouselOptions } from "../types";
 import { useAutoplay } from "./useAutoplay";
@@ -32,13 +32,16 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
     slideCount,
   });
 
-  const getContainerProps = (): HTMLAttributes<HTMLDivElement> => ({
+  const getContainerProps = useCallback((): HTMLAttributes<HTMLDivElement> => ({
     className: classes?.container
-  });
+  }), [classes]);
 
-  const getSliderProps = (): HTMLAttributes<HTMLDivElement> => ({ className: classes?.carousel, style: { overflow: "hidden" } });
+  const getSliderProps = useCallback((): HTMLAttributes<HTMLDivElement> => ({
+    className: classes?.carousel,
+    style: { overflow: "hidden" },
+  }), [classes]);
 
-  const getTrackProps = (): HTMLAttributes<HTMLDivElement> => ({
+  const getTrackProps = useCallback((): HTMLAttributes<HTMLDivElement> => ({
     ...draggableEvents,
     className: classes?.track,
     style: {
@@ -47,22 +50,22 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
       transition: !isDragging ? `transform ${speed}ms ease-in-out` : undefined,
       width: trackWidth,
     },
-  });
+  }), [classes, isDragging, speed, trackOffset, trackWidth]);
 
-  const getSlideProps = (): HTMLAttributes<HTMLDivElement> => ({
+  const getSlideProps = useCallback((): HTMLAttributes<HTMLDivElement> => ({
     className: classes?.slide,
     style: { width: '100%' },
-  });
+  }), [classes]);
 
-  const getButtonProps = (direction: 'next' | 'previous'): ButtonHTMLAttributes<HTMLButtonElement> => ({
+  const getButtonProps = useCallback((direction: 'next' | 'previous'): ButtonHTMLAttributes<HTMLButtonElement> => ({
     className: [classes?.button, classes?.buttonPrevious]
       .filter(Boolean)
       .join(" "),
     onClick: direction === 'next' ? goToNext : goToPrevious,
     type: 'button',
-  });
+  }), [classes, goToNext, goToPrevious]);
 
-  const getIndicatorProps = (index: number): ButtonHTMLAttributes<HTMLButtonElement> => ({
+  const getIndicatorProps = useCallback((index: number): ButtonHTMLAttributes<HTMLButtonElement> => ({
     className: [
       classes?.indicator,
       index === currentPage && classes?.indicatorActive,
@@ -71,7 +74,7 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
       .join(" "),
     onClick: () => goToPage(index),
     type: 'button',
-  });
+  }), [classes, currentPage, goToPage]);
 
   return {
     getButtonProps,

@@ -6,6 +6,8 @@ import {
 import { useKarousel } from "../../hooks";
 import { KarouselOptions } from "../../types";
 
+const key = typeof window === 'undefined' ? 'server' : 'client';
+
 export type KarouselProps = PropsWithChildren<Partial<KarouselOptions>>;
 
 export const Karousel = (props: KarouselProps) => {
@@ -26,7 +28,7 @@ export const Karousel = (props: KarouselProps) => {
   return (
     <div {...getContainerProps()}>
       <div {...getSliderProps()}>
-        <div {...getTrackProps()}>
+        <div key={key} {...getTrackProps()}>
           {Children.map(children, (child, index) => (
             <div {...getSlideProps()} key={index}>
               {child}
