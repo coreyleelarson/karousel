@@ -7,7 +7,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "publish": "turbo run publish"
   },
   "repository": {
     "type": "git",
