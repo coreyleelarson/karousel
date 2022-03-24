@@ -1,6 +1,10 @@
 import { Karousel } from "karousel";
 
 const classes = {
+  button: 'button',
+  buttonNext: 'button--next',
+  buttonPrevious: 'button--previous',
+  container: 'karousel',
   indicators: 'indicators',
   indicator: 'indicator',
   indicatorActive: 'indicator--active',

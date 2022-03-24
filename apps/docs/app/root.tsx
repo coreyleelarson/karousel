@@ -9,7 +9,6 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import { Header } from "~/components/Header";
-import { Navigation } from "~/components/Navigation";
 import globalStyles from '~/styles/global.css';
 import resetStyles from '~/styles/reset.css';
 import tokenStyles from '~/styles/tokens.css';
@@ -38,7 +37,6 @@ export default function App() {
       </head>
       <body>
         <Header />
-        <Navigation />
         <Outlet />
         <ScrollRestoration />
         <Scripts />

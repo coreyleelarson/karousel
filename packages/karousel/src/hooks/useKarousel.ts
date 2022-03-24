@@ -58,7 +58,7 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
   }), [classes]);
 
   const getButtonProps = useCallback((direction: 'next' | 'previous'): ButtonHTMLAttributes<HTMLButtonElement> => ({
-    className: [classes?.button, classes?.buttonPrevious]
+    className: [classes?.button, direction === 'next' ? classes?.buttonNext : classes?.buttonPrevious]
       .filter(Boolean)
       .join(" "),
     onClick: direction === 'next' ? goToNext : goToPrevious,
