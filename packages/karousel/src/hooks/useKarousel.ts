@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, HTMLAttributes, useCallback } from "react";
+import { ButtonHTMLAttributes, HTMLAttributes, useCallback, useMemo } from "react";
 import { applyDefaults } from "../defaults";
 import { KarouselOptions } from "../types";
 import { useAutoplay } from "./useAutoplay";
@@ -7,10 +7,15 @@ import { usePaging } from "./usePaging";
 import { useResponsive } from "./useResponsive";
 import { useTrack } from "./useTrack";
 
+let count = 0;
+
 export const useKarousel = (slideCount: number, options: Partial<KarouselOptions>) => {
   // Ensure options are defaulted.
   const defaultedOptions = applyDefaults(options);
   const { classes, speed } = defaultedOptions;
+  
+  // Ensure unique id.
+  const id = useMemo(() => `karousel-${++count}`, []);
 
   // Ensure options are responsive.
   const { responsiveOptions } = useResponsive(defaultedOptions);
@@ -24,7 +29,7 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
     onNext: goToNext,
     onPrevious: goToPrevious,
   });
-  const { trackOffset, trackWidth } = useTrack({
+  const { activeSlides, trackOffset, trackWidth } = useTrack({
     ...responsiveOptions,
     currentPage,
     draggedX,
@@ -33,6 +38,8 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
   });
 
   const getContainerProps = useCallback((): HTMLAttributes<HTMLDivElement> => ({
+    'aria-live': 'polite',
+    id,
     className: classes?.container
   }), [classes]);
 
@@ -41,20 +48,33 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
     style: { overflow: "hidden" },
   }), [classes]);
 
-  const getTrackProps = useCallback((): HTMLAttributes<HTMLDivElement> => ({
+  const getTrackProps = useCallback((): HTMLAttributes<HTMLUListElement> => ({
     ...draggableEvents,
     className: classes?.track,
     style: {
       display: "flex",
+      listStyle: 'none',
+      margin: 0,
+      padding: 0,
       transform: `translateX(${trackOffset})`,
       transition: !isDragging ? `transform ${speed}ms ease-in-out` : undefined,
       width: trackWidth,
     },
   }), [classes, isDragging, speed, trackOffset, trackWidth]);
 
-  const getSlideProps = useCallback((): HTMLAttributes<HTMLDivElement> => ({
-    className: classes?.slide,
-    style: { width: '100%' },
+  const getSlideProps = useCallback((slide: number): HTMLAttributes<HTMLLIElement> => {
+    const isActive = activeSlides.includes(slide);
+    return {
+      'aria-hidden': !isActive,
+      className: [classes?.slide, !isActive && classes?.slideInactive].filter(Boolean).join(' '),
+      style: { width: '100%' },
+    };
+  }, [activeSlides, classes]);
+
+  const getControlProps = useCallback((): HTMLAttributes<HTMLFieldSetElement> => ({
+    'aria-controls': id,
+    'aria-label': 'carousel buttons',
+    className: classes?.controls,
   }), [classes]);
 
   const getButtonProps = useCallback((direction: 'next' | 'previous'): ButtonHTMLAttributes<HTMLButtonElement> => ({
@@ -65,23 +85,24 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
     type: 'button',
   }), [classes, goToNext, goToPrevious]);
 
-  const getIndicatorProps = useCallback((index: number): ButtonHTMLAttributes<HTMLButtonElement> => ({
+  const getIndicatorProps = useCallback((page: number): ButtonHTMLAttributes<HTMLButtonElement> => ({
     className: [
       classes?.indicator,
-      index === currentPage && classes?.indicatorActive,
+      page === currentPage && classes?.indicatorActive,
     ]
       .filter(Boolean)
       .join(" "),
-    onClick: () => goToPage(index),
+    onClick: () => goToPage(page),
     type: 'button',
   }), [classes, currentPage, goToPage]);
 
   return {
     getButtonProps,
-    getSliderProps,
     getContainerProps,
+    getControlProps,
     getIndicatorProps,
     getSlideProps,
+    getSliderProps,
     getTrackProps,
     pageCount,
   };

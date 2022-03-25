@@ -6,8 +6,6 @@ import {
 import { useKarousel } from "../../hooks";
 import { KarouselOptions } from "../../types";
 
-const key = typeof window === 'undefined' ? 'server' : 'client';
-
 export type KarouselProps = PropsWithChildren<Partial<KarouselOptions>>;
 
 export const Karousel = (props: KarouselProps) => {
@@ -18,6 +16,7 @@ export const Karousel = (props: KarouselProps) => {
   const {
     getButtonProps,
     getContainerProps,
+    getControlProps,
     getIndicatorProps,
     getSlideProps,
     getSliderProps,
@@ -28,29 +27,31 @@ export const Karousel = (props: KarouselProps) => {
   return (
     <div {...getContainerProps()}>
       <div {...getSliderProps()}>
-        <div key={key} {...getTrackProps()}>
+        <ul {...getTrackProps()}>
           {Children.map(children, (child, index) => (
-            <div {...getSlideProps()} key={index}>
+            <li {...getSlideProps(index + 1)} key={index}>
               {child}
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-      {buttons && (
-        <>
-          <button {...getButtonProps('previous')}>Previous</button>
-          <button {...getButtonProps('next')}>Next</button>
-        </>
-      )}
-      {indicators && (
-        <div className={classes?.indicators}>
-          {[...Array(pageCount)].map((_, index) => (
-            <button key={index + 1} {...getIndicatorProps(index + 1)}>
-              {index + 1}
-            </button>
-          ))}
-        </div>
-      )}
+      <fieldset {...getControlProps()}>
+        {buttons && (
+          <>
+            <button {...getButtonProps('previous')}>Previous</button>
+            <button {...getButtonProps('next')}>Next</button>
+          </>
+        )}
+        {indicators && (
+          <div className={classes?.indicators}>
+            {[...Array(pageCount)].map((_, index) => (
+              <button key={index + 1} {...getIndicatorProps(index + 1)}>
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        )}
+      </fieldset>
     </div>
   );
 };
