@@ -1,3 +1,33 @@
+.demo {
+  background-color: #222;
+  border-radius: 1rem;
+  display: grid;
+  grid-template-areas:
+    "viewport viewport"
+    "code controls";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  overflow: hidden;
+}
+.demo__viewport {
+  align-items: center;
+  display: flex;
+  grid-area: viewport;
+  justify-content: center;
+  padding: 3rem;
+}
+.demo__code {
+  grid-area: code;
+  overflow: auto;
+}
+.demo__code pre {
+  margin: 0;
+}
+.demo__controls {
+  grid-area: controls;
+  padding: 2rem;
+}
+
 .indicators {
   bottom: calc(-26px);
   display: inline-flex;
