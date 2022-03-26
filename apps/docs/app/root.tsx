@@ -40,9 +40,11 @@ export default function App() {
       </head>
       <body>
         <Header />
-        <KarouselSSRProvider>
-          <Outlet />
-        </KarouselSSRProvider>
+        <main>
+          <KarouselSSRProvider>
+            <Outlet />
+          </KarouselSSRProvider>
+        </main>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
