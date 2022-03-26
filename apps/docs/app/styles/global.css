@@ -40,8 +40,9 @@ pre {
 
 .container {
   margin-inline: auto;
-  max-width: 960px;
-  padding-inline: 1rem;
+  max-width: 100%;
+  padding-inline: 2rem;
+  width: 1200px;
 }
 
 .karousel {
