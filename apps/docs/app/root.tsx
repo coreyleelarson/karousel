@@ -1,3 +1,4 @@
+import { SSRProvider as KarouselSSRProvider } from "karousel";
 import {
   Links,
   LinksFunction,
@@ -9,6 +10,7 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import { Header } from "~/components/Header";
+import componentStyles from '~/styles/components.css';
 import globalStyles from '~/styles/global.css';
 import resetStyles from '~/styles/reset.css';
 import tokenStyles from '~/styles/tokens.css';
@@ -17,6 +19,7 @@ export const links: LinksFunction = () => [
   { href: tokenStyles, rel: 'stylesheet' },
   { href: resetStyles, rel: 'stylesheet' },
   { href: globalStyles, rel: 'stylesheet' },
+  { href: componentStyles, rel: 'stylesheet' },
 ];
 
 export const meta: MetaFunction = () => ({
@@ -37,7 +40,9 @@ export default function App() {
       </head>
       <body>
         <Header />
-        <Outlet />
+        <KarouselSSRProvider>
+          <Outlet />
+        </KarouselSSRProvider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />

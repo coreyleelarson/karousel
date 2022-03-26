@@ -1,6 +1,6 @@
 {
   "name": "karousel",
-  "version": "0.0.6",
+  "version": "0.0.9",
   "description": "Karousel library",
   "author": "Corey Larson",
   "keywords": [],
@@ -19,9 +19,8 @@
     "build": "npm run build:cjs && npm run build:esm",
     "build:esm": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
-    "publish": "npm publish",
     "prebuild": "npm run clean",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
@@ -35,5 +34,9 @@
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
+  },
+  "dependencies": {
+    "@react-aria/ssr": "^3.1.2",
+    "@react-aria/utils": "^3.11.3"
   }
 }

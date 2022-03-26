@@ -5,16 +5,18 @@ export interface KarouselOptions {
   classes: Record<string, string>;
   draggable: boolean;
   indicators: boolean;
-  responsive: ResponsiveKarouselOption[];
+  responsive: KarouselBreakpoint[];
   slidesToScroll: number;
   slidesToShow: number;
   speed: number;
 }
 
-export interface ResponsiveKarouselOption {
+export interface KarouselBreakpoint {
   breakpoint: number;
   options: Omit<Partial<KarouselOptions>, 'responsive'>;
 }
+
+export type ResponsiveKarouselOptions = Omit<Partial<KarouselOptions>, 'responsive'>;
 
 export interface AutoplayOptions extends KarouselOptions {
   onNext: () => void;

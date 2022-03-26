@@ -1,3 +1,4 @@
+import { useId } from "@react-aria/utils";
 import { ButtonHTMLAttributes, HTMLAttributes, useCallback, useMemo } from "react";
 import { applyDefaults } from "../defaults";
 import { KarouselOptions } from "../types";
@@ -7,15 +8,13 @@ import { usePaging } from "./usePaging";
 import { useResponsive } from "./useResponsive";
 import { useTrack } from "./useTrack";
 
-let count = 0;
-
 export const useKarousel = (slideCount: number, options: Partial<KarouselOptions>) => {
-  // Ensure options are defaulted.
-  const defaultedOptions = applyDefaults(options);
-  const { classes, speed } = defaultedOptions;
-  
   // Ensure unique id.
-  const id = useMemo(() => `karousel-${++count}`, []);
+  const id = useId();
+
+  // Ensure options are defaulted.
+  const defaultedOptions = useMemo(() => applyDefaults(options), [options]);
+  const { classes, speed } = defaultedOptions;
 
   // Ensure options are responsive.
   const { responsiveOptions } = useResponsive(defaultedOptions);

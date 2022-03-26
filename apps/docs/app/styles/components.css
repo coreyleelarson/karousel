@@ -1,0 +1,12 @@
+.code-block,
+.error-block {
+  font-size: 14px;
+  margin-block: 2rem;
+  overflow-x: auto;
+}
+
+.error-block {
+  background-color: #1E1E1E;
+  color: #f54242;
+  padding: 2rem;
+}

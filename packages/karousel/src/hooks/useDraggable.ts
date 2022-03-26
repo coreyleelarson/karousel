@@ -17,7 +17,6 @@ export const useDraggable = (options: DraggableOptions) => {
   const handleDragStart = useCallback((e: ReactMouseEvent | ReactTouchEvent) => {
     if (draggable) {
       onDragStart?.();
-      console.log(e);
       if (e.nativeEvent instanceof TouchEvent) {
         setDragStart(e.nativeEvent.touches[0].clientX);
         setDragX(e.nativeEvent.touches[0].clientX);
