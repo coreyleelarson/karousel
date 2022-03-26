@@ -1,3 +1,6 @@
 :root {
-  
+  --color-background: #13293d;
+  --color-primary: #fff;
+  --color-secondary: #3e92cc;
+  --color-on-background: #fff;
 }
