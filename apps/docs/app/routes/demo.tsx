@@ -30,6 +30,29 @@ export default function Demo() {
   const [buttons, toggleButtons] = useToggle(true);
   const [indicators, toggleIndicators] = useToggle(true);
   const [styled, toggleStyled] = useToggle(true);
+  const codeProps = [
+    autoplay && "autoplay",
+    buttons && "buttons",
+    indicators && "indicators",
+    slidesToScroll > 1 && `slidesToScroll={${slidesToScroll}}`,
+    slidesToShow > 1 && `slidesToShow={${slidesToShow}}`,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const code = `
+<Karousel ${codeProps}>
+  <span>Item 1</span>
+  <span>Item 2</span>
+  <span>Item 3</span>
+  <span>Item 4</span>
+  <span>Item 5</span>
+  <span>Item 6</span>
+  <span>Item 7</span>
+  <span>Item 8</span>
+  <span>Item 9</span>
+  <span>Item 10</span>
+</Karousel>
+  `;
 
   return (
     <div className="container">
@@ -91,7 +114,7 @@ export default function Demo() {
           onCheckedChange={toggleStyled}
         />
       </section>
-      <CodeBlock code="" />
+      <CodeBlock code={code} />
     </div>
   );
 }
