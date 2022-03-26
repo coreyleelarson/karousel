@@ -38,9 +38,9 @@ export default function Demo() {
     slidesToShow > 1 && `slidesToShow={${slidesToShow}}`,
   ]
     .filter(Boolean)
-    .join(" ");
+    .join("\n  ");
   const code = `
-<Karousel ${codeProps}>
+<Karousel${codeProps.length > 0 ? `\n  ${codeProps}\n` : ""}>
   <span>Item 1</span>
   <span>Item 2</span>
   <span>Item 3</span>
