@@ -1,16 +1,19 @@
 .demo {
-  background-color: #222;
+  background-color: #163650;
   border-radius: 1rem;
+  box-shadow: 0 0 2rem rgba(0, 0, 0, 0.2);
   display: grid;
   grid-template-areas:
     "viewport viewport"
     "code controls";
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
   overflow: hidden;
+  width: 100%;
 }
 .demo__viewport {
   align-items: center;
+  background-color: #1a4361;
   display: flex;
   grid-area: viewport;
   justify-content: center;
@@ -20,7 +23,8 @@
   grid-area: code;
   overflow: auto;
 }
-.demo__code pre {
+.demo__code .code-block {
+  background-color: #163650 !important;
   margin: 0;
 }
 .demo__controls {
@@ -28,6 +32,60 @@
   padding: 2rem;
 }
 
+.karousel {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-inline: 2.5rem;
+  width: 100%;
+}
+.controls {
+  border: 0;
+  padding: 0;
+}
+.button {
+  align-items: center;
+  background-color: white;
+  border: 0;
+  border-radius: 50%;
+  color: black;
+  cursor: pointer;
+  display: flex;
+  font-size: 0;
+  height: 1.75rem;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.75rem;
+}
+.button:before {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  font-size: 1rem;
+}
+
+.button--next {
+  right: 0;
+}
+.button--next:before {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48cGF0aCBkPSJNMTguNjI5IDE1Ljk5N2wtNy4wODMtNy4wODFMMTMuNDYyIDdsOC45OTcgOC45OTdMMTMuNDU3IDI1bC0xLjkxNi0xLjkxNnoiLz48L3N2Zz4=");
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.button--previous {
+  left: 0;
+}
+.button--previous:before {
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48cGF0aCBkPSJNMTQuMTkgMTYuMDA1bDcuODY5IDcuODY4LTIuMTI5IDIuMTI5LTkuOTk2LTkuOTk3TDE5LjkzNyA2LjAwMmwyLjEyNyAyLjEyOXoiLz48L3N2Zz4=");
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+}
 .indicators {
   bottom: calc(-26px);
   display: inline-flex;
