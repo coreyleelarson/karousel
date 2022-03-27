@@ -10,13 +10,13 @@ export const Checkbox = (props: CheckboxProps) => {
   const { label, ...checkboxProps } = props;
 
   return (
-    <>
+    <div className="checkbox-container">
       <RadixCheckbox.Root {...checkboxProps} className="checkbox">
         <RadixCheckbox.Indicator>
           <FontAwesomeIcon icon={faCheck} />
         </RadixCheckbox.Indicator>
       </RadixCheckbox.Root>
       {label && <label>{label}</label>}
-    </>
+    </div>
   );
 };

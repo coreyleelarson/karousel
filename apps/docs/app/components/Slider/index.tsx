@@ -8,7 +8,7 @@ export const Slider = (props: SliderProps) => {
   const { label, ...sliderProps } = props;
 
   return (
-    <>
+    <div className="slider-container">
       {label && <label>{label}</label>}
       <RadixSlider.Root {...sliderProps} className="slider">
         <RadixSlider.Track className="slider__track">
@@ -16,6 +16,6 @@ export const Slider = (props: SliderProps) => {
         </RadixSlider.Track>
         <RadixSlider.Thumb className="slider__thumb" />
       </RadixSlider.Root>
-    </>
+    </div>
   );
 };

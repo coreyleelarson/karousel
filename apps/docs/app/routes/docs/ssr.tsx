@@ -50,7 +50,7 @@ export default function SSR() {
   return (
     <article>
       <header>
-        <h1>Server Side Rendering</h1>
+        <h1>Server-Side Rendering</h1>
         <p>Lorem ipsum dolor sit amet.</p>
       </header>
       <section>

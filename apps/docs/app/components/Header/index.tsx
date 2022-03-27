@@ -1,11 +1,14 @@
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "remix";
+import { Logo } from "../Logo";
 
 export const Header = () => {
   return (
     <header className="header">
-      <Link to="/">Karousel</Link>
+      <Link to="/">
+        <Logo />
+      </Link>
       <nav>
         <ul>
           <li>

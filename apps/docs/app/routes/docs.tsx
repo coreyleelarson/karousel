@@ -1,4 +1,4 @@
-import { Link, LinksFunction, Outlet } from "remix";
+import { LinksFunction, NavLink, Outlet } from "remix";
 import docsStyles from "~/styles/routes/docs.css";
 
 export const links: LinksFunction = () => [
@@ -12,10 +12,13 @@ export default function Docs() {
         <nav>
           <ul>
             <li>
-              <Link to="overview">Overview</Link>
+              <NavLink to="overview">Overview</NavLink>
             </li>
             <li>
-              <Link to="ssr">Server-Side Rendering</Link>
+              <NavLink to="styling">Styling</NavLink>
+            </li>
+            <li>
+              <NavLink to="ssr">Server-Side Rendering</NavLink>
             </li>
           </ul>
         </nav>

@@ -17,12 +17,18 @@
   margin: 1rem 0;
   padding: 0;
 }
-.docs__sidebar li {
-  display: flex;
-  padding: 0.25rem 1rem;
-}
 .docs__sidebar a {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  display: flex;
+  padding: 0.5rem 1rem;
   text-decoration: none;
+  transition: background-color 300ms ease, border 300ms ease;
+}
+.docs__sidebar a.active {
+  background-color: #1a4361;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+  border-top-color: rgba(255, 255, 255, 0.1);
 }
 
 .docs__content {
