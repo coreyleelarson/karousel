@@ -43,7 +43,7 @@ export const useKarousel = (slideCount: number, options: Partial<KarouselOptions
   }), [classes]);
 
   const getSliderProps = useCallback((): HTMLAttributes<HTMLDivElement> => ({
-    className: classes?.carousel,
+    className: classes?.slider,
     style: { overflow: "hidden" },
   }), [classes]);
 

@@ -8,21 +8,22 @@ import { CodeBlock } from "../CodeBlock";
 import { Slider } from "../Slider";
 
 const classes = {
-  button: "button",
-  buttonNext: "button--next",
-  buttonPrevious: "button--previous",
+  button: "karousel__button",
+  buttonNext: "karousel__button--next",
+  buttonPrevious: "karousel__button--previous",
+  slider: 'karousel__slider',
   container: "karousel",
-  controls: "controls",
-  indicators: "indicators",
-  indicator: "indicator",
-  indicatorActive: "indicator--active",
-  slide: "slide",
+  controls: "karousel__controls",
+  indicators: "karousel__indicators",
+  indicator: "karousel__indicator",
+  indicatorActive: "karousel__indicator--active",
+  slide: "karousel__slide",
 };
 
 export const Configurator = () => {
   const [slidesToScroll, setSlidesToScroll] = useState<number>(1);
   const [slidesToShow, setSlidesToShow] = useState<number>(2);
-  const [autoplay, toggleAutoplay] = useToggle(true);
+  const [autoplay, toggleAutoplay] = useToggle(false);
   const [buttons, toggleButtons] = useToggle(true);
   const [draggable, toggleDraggable] = useToggle(true);
   const [indicators, toggleIndicators] = useToggle(true);

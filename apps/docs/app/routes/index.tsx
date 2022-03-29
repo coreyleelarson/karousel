@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Link, LinksFunction } from "remix";
+import { LinksFunction } from "remix";
 import { Configurator } from "~/components/Configurator";
 import { useCycle } from "~/hooks/useCycle";
 import homeStyles from "~/styles/routes/home.css";
