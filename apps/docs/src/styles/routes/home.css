@@ -1,0 +1,18 @@
+.hero {
+  margin-block: 3rem;
+  text-align: center;
+}
+.hero h1 {
+  font-size: 6rem;
+  line-height: 1em;
+  margin: 0 0 1rem;
+}
+.hero p {
+  font-size: 3rem;
+  line-height: 1em;
+  margin: 0;
+}
+.hero strong {
+  color: #2cdd88;
+  font-weight: bold;
+}

@@ -1,14 +1,9 @@
 import { useMemo } from "react";
-import { LinksFunction } from "remix";
-import { Configurator } from "~/components/Configurator";
-import { useCycle } from "~/hooks/useCycle";
-import homeStyles from "~/styles/routes/home.css";
+import { Configurator } from "../../components/Configurator";
+import { useCycle } from "../../hooks/useCycle";
+import styles from './styles.module.css';
 
-export const links: LinksFunction = () => [
-  { href: homeStyles, rel: "stylesheet" },
-];
-
-export default function Demo() {
+export default function Home() {
   const [descriptor] = useCycle(
     ["simple", "accessible", "responsive", "customizable"],
     3000
@@ -20,9 +15,9 @@ export default function Demo() {
   );
 
   return (
-    <main className="home">
+    <main className={styles.home}>
       <article className="container">
-        <header className="hero">
+        <header className={styles.hero}>
           <h1>karousel</h1>
           <p>
             A{needsN ? "n" : ""} <strong>{descriptor}</strong> React carousel,

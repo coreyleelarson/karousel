@@ -2,7 +2,7 @@ import { faCopy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Karousel } from "karousel";
 import { useState } from "react";
-import { useToggle } from "~/hooks/useToggle";
+import { useToggle } from "../../hooks/useToggle";
 import { Checkbox } from "../Checkbox";
 import { CodeBlock } from "../CodeBlock";
 import { Slider } from "../Slider";

@@ -6,5 +6,6 @@
 !.yarn/sdks
 !.yarn/versions
 
+docs-old
 node_modules.turbo
 node_modules
