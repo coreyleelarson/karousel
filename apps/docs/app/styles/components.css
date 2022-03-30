@@ -43,7 +43,7 @@
     radial-gradient(rgba(255, 255, 255, 0.5) 20%, transparent 20%),
     radial-gradient(rgba(255, 255, 255, 0.5) 20%, transparent 20%);
   content: '';
-  background-position: -3px -5px, 4px -5px, 11px -5px;
+  background-position: -3px -5px, 5px -5px, 13px -5px;
   background-repeat: no-repeat;
   background-size: 15px 15px;
   display: inline-block;
@@ -284,8 +284,9 @@
 .karousel__indicators {
   bottom: calc(-26px);
   display: inline-flex;
-  right: 0;
+  left: 50%;
   position: absolute;
+  transform: translateX(-50%);
 }
 .karousel__indicator {
   background: none;

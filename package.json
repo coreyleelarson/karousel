@@ -8,7 +8,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "publish": "turbo run publish"
+    "prepublish": "lerna run prepublish",
+    "publish": "lerna publish"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/coreyleelarson/karousel#readme",
   "devDependencies": {
+    "lerna": "^4.0.0",
     "turbo": "^1.1.10"
   }
 }

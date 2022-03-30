@@ -20,7 +20,7 @@
     "build:esm": "tsc",
     "build:cjs": "tsc --module CommonJS --outDir dist/cjs",
     "prebuild": "npm run clean",
-    "prepublishOnly": "npm run build"
+    "prepublish": "npm run build"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
