@@ -3,7 +3,7 @@ import { Configurator } from "../../components/Configurator";
 import { useCycle } from "../../hooks/useCycle";
 import styles from './styles.module.css';
 
-export default function Home() {
+export const Home = () => {
   const [descriptor] = useCycle(
     ["simple", "accessible", "responsive", "customizable"],
     3000

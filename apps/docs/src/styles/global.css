@@ -6,12 +6,18 @@ body {
     rgba(255, 255, 255, 0.1)
   );
   color: var(--color-on-background);
-  display: grid;
+  /* display: grid; */
   font-family: "Open Sans", sans-serif;
   font-size: 16px;
+  /* grid-template-rows: auto minmax(0, 1fr); */
+  /* height: 100vh; */
+  line-height: 1.75;
+}
+
+#root {
+  display: grid;
   grid-template-rows: auto minmax(0, 1fr);
   height: 100vh;
-  line-height: 1.75;
 }
 
 a {
