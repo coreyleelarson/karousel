@@ -1,0 +1,13 @@
+[33m@karousel/react:build: [0mcache hit, replaying output [2mcfb1b0d85ab2fff2[0m
+[33m@karousel/react:build: [0m
+[33m@karousel/react:build: [0m> @karousel/react@0.0.1 build
+[33m@karousel/react:build: [0m> rollup -c
+[33m@karousel/react:build: [0m
+[33m@karousel/react:build: [0m[36m
+[33m@karousel/react:build: [0m[1m./src/index.ts[22m → [1mdist/cjs/index.js, dist/esm/index.js[22m...[39m
+[33m@karousel/react:build: [0m[1m[33m(!) Unresolved dependencies[39m[22m
+[33m@karousel/react:build: [0m[90mhttps://rollupjs.org/guide/en/#warning-treating-module-as-external-dependency[39m
+[33m@karousel/react:build: [0m[1mreact/jsx-runtime[22m (imported by src/components/Karousel/index.tsx)
+[33m@karousel/react:build: [0m[1mreact[22m (imported by src/components/Karousel/index.tsx, src/hooks/useKarousel.ts)
+[33m@karousel/react:build: [0m[1m@karousel/core[22m (imported by src/hooks/useKarousel.ts, src/utils/convertAttributesToProps.ts)
+[33m@karousel/react:build: [0m[32mcreated [1mdist/cjs/index.js, dist/esm/index.js[22m in [1m1.8s[22m[39m

@@ -2,13 +2,13 @@
   "private": true,
   "description": "",
   "workspaces": [
-    "apps/*",
+    "docs",
     "packages/*"
   ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "prepublish": "lerna run prepublish",
+    "prepublishOnly": "lerna run prepublish",
     "publish": "lerna publish"
   },
   "repository": {
