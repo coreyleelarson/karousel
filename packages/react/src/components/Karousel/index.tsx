@@ -21,16 +21,12 @@ export const Karousel = (props: KarouselProps) => {
         </div>
       </div>
       <fieldset {...karousel.getControlsProps()}>
-        <button {...karousel.getButtonProps('previous')} type="button">
-          Previous
-        </button>
-        <button {...karousel.getButtonProps('next')} type="button">
-          Next
-        </button>
+        <button {...karousel.getDirectionButtonProps('previous')} type="button">Previous</button>
+        <button {...karousel.getDirectionButtonProps('next')} type="button">Next</button>
         <ul>
           {[...Array(karousel.totalPages)].map((_, index) => (
             <li key={index}>
-              <button {...karousel.getIndicatorProps(index + 1)} type="button">
+              <button {...karousel.getIndicatorButtonProps(index + 1)} type="button">
                 Page {index + 1}
               </button>
             </li>

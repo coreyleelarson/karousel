@@ -3,6 +3,9 @@ import { convertStyleStringToObj } from "@karousel/core";
 const propDictionary = {
   'class': 'className',
   'onclick': 'onClick',
+  'onmousedown': 'onMouseDown',
+  'onmousemove': 'onMouseMove',
+  'onmouseup': 'onMouseUp',
 };
 
 export const convertAttributesToProps = (attributes: Record<string, any>): Record<string, any> => {

@@ -5,6 +5,8 @@ export const DocsOverview = () => {
     <>
       <h1>Overview</h1>
       <Karousel
+        autoplay
+        draggable
         classes={{
           button: 'testing-button',
           container: 'testing-container',

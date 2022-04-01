@@ -1,15 +1,10 @@
 import { KarouselModel, KarouselOptions } from "@karousel/core";
-import { useCallback, useEffect, useReducer, useRef } from "react";
+import { useCallback, useReducer, useRef } from "react";
 import { convertAttributesToProps } from '../utils';
 
 export const useKarousel = (totalItems: number, options: Partial<KarouselOptions>) => {
   const [, forceUpdate] = useReducer(x => x + 1, 0);
-  const model = useRef<KarouselModel>(new KarouselModel(totalItems, options).initialize());
-
-  const wrappedCallback = useCallback((callback) => (...args) => {
-    callback(...args);
-    forceUpdate();
-  }, [forceUpdate]);
+  const model = useRef<KarouselModel>(new KarouselModel(totalItems, { options, updater: forceUpdate }).initialize());
 
   const getContainerProps = useCallback(() =>
     convertAttributesToProps(model.current.getContainerAttributes()), [model.current]);
@@ -26,28 +21,22 @@ export const useKarousel = (totalItems: number, options: Partial<KarouselOptions
   const getControlsProps = useCallback(() =>
     convertAttributesToProps(model.current.getControlsAttributes()), [model.current]);
   
-  const getButtonProps = useCallback((direction: 'next' | 'previous') => {
-    const buttonProps = convertAttributesToProps(model.current.getButtonAttributes(direction));
-    return {
-      ...buttonProps,
-      onClick: wrappedCallback(buttonProps.onClick),
-    };
-  }, [forceUpdate, model.current]);
+  const getAutoplayButtonProps = useCallback(() =>
+    convertAttributesToProps(model.current.getAutoplayButtonAttributes()), [forceUpdate, model.current]);
+
+  const getDirectionButtonProps = useCallback((direction: 'next' | 'previous') =>
+    convertAttributesToProps(model.current.getDirectionButtonAttributes(direction)), [forceUpdate, model.current]);
   
-  const getIndicatorProps = useCallback((page: number) => {
-    const indicatorProps = convertAttributesToProps(model.current.getIndicatorAttributes(page));
-    return {
-      ...indicatorProps,
-      onClick: wrappedCallback(indicatorProps.onClick),
-    };
-  }, [model.current]);
+  const getIndicatorButtonProps = useCallback((page: number) =>
+    convertAttributesToProps(model.current.getIndicatorButtonAttributes(page)), [model.current]);
   
   return {
     currentPage: model.current.currentPage,
-    getButtonProps,
+    getAutoplayButtonProps,
     getContainerProps,
     getControlsProps,
-    getIndicatorProps,
+    getDirectionButtonProps,
+    getIndicatorButtonProps,
     getSlideProps,
     getSliderProps,
     getTrackProps,
